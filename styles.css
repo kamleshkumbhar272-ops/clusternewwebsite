@@ -1577,8 +1577,29 @@ color: rgba(126, 25, 37, 0.9);
     }
 }
 
-/* EXTRA SMALL PHONES: 320px and below */
-@media (max-width: 380px) {
+/* EXTRA SMALL PHONES: 320px and below */@media (max-width: 380px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+    }
+
+    .product-image-wrapper {
+        height: 150px !important;
+    }
+
+    .product-name {
+        font-size: 0.8rem !important;
+    }
+
+    .price {
+        font-size: 0.9rem !important;
+    }
+
+    .btn-small {
+        padding: 0.5rem 0.6rem !important;
+        font-size: 0.7rem !important;
+    }
+}@media (max-width: 380px) {
     .products-grid {
         gap: 0.8rem !important;
     }
