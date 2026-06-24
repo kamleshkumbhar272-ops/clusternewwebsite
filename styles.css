@@ -953,6 +953,7 @@ color: rgba(126, 25, 37, 0.9);
         grid-template-columns: 1fr;
         gap: 2rem;
         padding: 2rem 0;
+        
     }
 
     .hero-text h1 {
@@ -1020,6 +1021,7 @@ color: rgba(126, 25, 37, 0.9);
     .hero {
         padding: 2rem 1rem;
         min-height: auto;
+        
     }
 
     .hero-description {
