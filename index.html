@@ -7,6 +7,278 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CUSTOMER REVIEWS SECTION ==================== */
+        .reviews-section {
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+        }
+
+        .reviews-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .reviews-header h2 {
+            font-size: 2.2rem;
+            color: #7e1925;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviews-header p {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==================== REVIEWS GRID ==================== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(126, 25, 37, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #7e1925;
+        }
+
+        .review-card:hover {
+            box-shadow: 0 8px 24px rgba(126, 25, 37, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7e1925, #ad687c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: #7e1925;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-title {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .review-rating i {
+            color: #ffc107;
+            font-size: 0.85rem;
+        }
+
+        .review-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        /* ==================== CUSTOMER PHOTOS SECTION ==================== */
+        .customer-photos-section {
+            margin-top: 3rem;
+        }
+
+        .photos-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #7e1925;
+            margin-bottom: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+
+        .customer-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .customer-photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 200px;
+            background: #f5f5f5;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(126, 25, 37, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .customer-photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .customer-photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(126, 25, 37, 0.2);
+        }
+
+        .customer-photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(126, 25, 37, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .customer-photo-item:hover .customer-photo-overlay {
+            opacity: 1;
+        }
+
+        .customer-photo-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* ==================== STATS SECTION ==================== */
+        .review-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #7e1925;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .reviews-section {
+                padding: 2rem 1rem;
+            }
+
+            .reviews-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .customer-photos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .customer-photo-item {
+                height: 150px;
+            }
+
+            .review-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reviews-section {
+                padding: 1.5rem 1rem;
+                margin: 2rem 0;
+            }
+
+            .reviews-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .reviews-header p {
+                font-size: 0.9rem;
+            }
+
+            .testimonials-grid {
+                gap: 1rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+
+            .customer-photos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .customer-photo-item {
+                height: 120px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .review-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -73,7 +345,7 @@
             <!-- Product 1 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="patch mug.jpeg" alt="Premium patch mug" class="product-image">
+                    <img src="patch mug side 1.jpg" alt="Premium patch mug" class="product-image">
                     <span class="product-badge">New</span>
                 </div>
                 <div class="product-info">
@@ -85,20 +357,20 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
-                        <span>(0 reviews)</span>
+                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹299</span>
                         <span class="original-price">₹350</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Patch Mug', '₹299')" class="btn btn-small">order now</a>
+                    <a href="patch mug.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
             <!-- Product 2 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="plan w mug.jpeg" alt="Classic Premium Ceramic Mug" class="product-image">
+                    <img src="white side 1.jpg" alt="Classic Premium Ceramic Mug" class="product-image">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">White Mug</h3>
@@ -109,20 +381,20 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹199</span>
                         <span class="original-price">₹229</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Premium White Mug', '₹199')" class="btn btn-small">order now</a>
+                    <a href="white mug.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
             <!-- Product 3 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="black magic mug .jpeg" alt="Premium magic mug" class="product-image">
+                    <img src="magic side 5.jpg" alt="Premium magic mug" class="product-image">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Magic Mug</h3>
@@ -133,20 +405,20 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹349</span>
                         <span class="original-price">₹449</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Black Magic Mug', '₹349')" class="btn btn-small">order now</a>
+                    <a href="magic.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
             <!-- Product 4 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="new sipper bottel .jpeg" alt="sipper bottel" class="product-image">
+                    <img src="siper side 4.jpg" alt="sipper bottel" class="product-image">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Sipper Bottle</h3>
@@ -157,64 +429,21 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹349</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Sipper Bottle', '₹349')" class="btn btn-small">order now</a>
+                    <a href="siper.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-            <!-- Product 5 -->
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img src="Square Fur Pillow.jpeg" alt="Square Fur Pillow" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Square Fur Pillow</h3>
-                    <p class="product-category">Category</p>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="price">₹399</span>
-                    </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Square Fur Pillow', '₹399')" class="btn btn-small">order now</a>
-                </div>
-             </div>
-
-              <!-- Product 6 -->
-              <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img src="Heart Fur Pillow.jpeg" alt="Heart Fur Pillow" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Heart Fur Pillow</h3>
-                    <p class="product-category">Category</p>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="price">₹399</span>
-                    </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Heart Fur Pillow', '₹399')" class="btn btn-small">order now</a>
-                </div>
-            </div>
+        
+             
 
              <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="Mouse Pad .jpeg" alt="Mouse Pad " class="product-image">
+                    <img src="Mouse side 1.jpg" alt="Mouse Pad " class="product-image">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Mouse Pad </h3>
@@ -225,12 +454,12 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹149</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Mouse Pad ', '₹149')" class="btn btn-small">order now</a>
+                    <a href="mouse.html" class="btn btn-small">order now</a>
                 </div>
              </div>
         </div>
@@ -240,19 +469,19 @@
 
    
     <!-- Featured Products Section - Keychains -->
-    <section id="keychains" class="categories-section">
-        <h2 class="section-title">Cluster Studio Design - Keychains</h2>
+    <section id="keychains & t-shirts" class="categories-section">
+        <h2 class="section-title">Cluster Studio Design - Keychains & T-Shirts</h2>
         <p class="section-subtitle">Explore Our Premium Collections</p>
         
         <div class="products-grid">
             <!-- Keychain 1 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="Round Keychain .jpeg" alt="Round Keychain" class="product-image">
+                    <img src="tshart side 1.jpg" alt="T-Shirt" class="product-image">
                     <span class="product-badge">New</span>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Round Keychain</h3>
+                    <h3 class="product-name">poly cotton t shirt</h3>
                     <p class="product-category"></p>
                     <div class="product-rating">
                         <i class="fas fa-star"></i>
@@ -260,23 +489,23 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
-                        <span>(0 reviews)</span>
+                       
                     </div>
                     <div class="product-price">
-                        <span class="price">₹129</span>
-                        <span class="original-price">₹150</span>
+                        <span class="price">₹299</span>
+                        <span class="original-price">₹349</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Round Keychain Metal / Wooden ', '₹129')" class="btn btn-small">order now</a>
+                    <a href="tshart.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
             <!-- Keychain 2 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="Square Keychain  Metal  Wooden .jpeg" alt="Square Keychain" class="product-image">
+                    <img src="polyster tshart side 1.jpg" alt="polyester t shirt" class="product-image">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Square Keychain</h3>
+                    <h3 class="product-name">polyester t shirt</h3>
                     <p class="product-category"></p>
                     <div class="product-rating">
                         <i class="fas fa-star"></i>
@@ -284,41 +513,18 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                        
                     </div>
                     <div class="product-price">
-                        <span class="price">₹129</span>
-                        <span class="original-price">₹150</span>
+                        <span class="price">₹299</span>
+                        <span class="original-price">₹349</span>
                     </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Square Keychain Metal / Wooden', '₹129')" class="btn btn-small">order now</a>
+                    <a href="PolysterTshirt.html" class="btn btn-small">order now</a>
                 </div>
             </div>
 
             <!-- Keychain 3 -->
-            <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img src="heart keychain.jpeg" alt="Heart Keychain Metal / Wooden " class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Heart Keychain</h3>
-                    <p class="product-category"></p>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="price">₹129</span>
-                        <span class="original-price">₹150</span>
-                    </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Heart Keychain Metal / Wooden ', '₹129')" class="btn btn-small">order now</a>
-                </div>
-            </div>
-
-            <!-- Keychain 4 -->
+           <!-- Keychain 4 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
                     <img src="ovel kechain .jpeg" alt="Oval Keychain" class="product-image">
@@ -332,7 +538,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹129</span>
@@ -356,7 +562,7 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
+                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹129</span>
@@ -366,51 +572,7 @@
             </div>
              <!-- Keychain 5 -->
            
-             <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img src="Polyster White Tshirt.jpeg" alt="Polyster White Tshirt" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Polyster White Tshirt</h3>
-                    <p class="product-category">Category</p>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="price">₹299</span>
-                    </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Polyster White Tshirt', '₹299')" class="btn btn-small">order now</a>
-                </div>
-            </div>
-             <!-- Keychain 5 -->
-           
-             <div class="product-card">
-                <div class="product-image-wrapper">
-                    <img src="poly cotton white Tshirt.jpeg" alt="Poly cotton Tshirt" class="product-image">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-name">Poly cotton Tshirt</h3>
-                    <p class="product-category">Category</p>
-                    <div class="product-rating">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <span>(0 reviews)</span>
-                    </div>
-                    <div class="product-price">
-                        <span class="price">₹329</span>
-                    </div>
-                    <a href="#" onclick="sendToWhatsApp(event, 'Poly cotton Tshirt', '₹329')" class="btn btn-small">order now</a>
-                </div>
-            </div>
-             <!-- Keychain 5 -->
+             
            
              <div class="product-card">
                 <div class="product-image-wrapper">
@@ -437,24 +599,193 @@
     </section>
 
     <!-- Trust Section -->
-    <section class="trust-section">
-        <h2 class="section-title">Why Choose Cluster Studio</h2>
-        <div class="trust-grid">
-            <div class="trust-item">
-                <i class="fas fa-crown"></i>
-                <h3>Premium Quality</h3>
+
+    <!-- ==================== CUSTOMER REVIEWS SECTION ==================== -->
+    <section class="reviews-section">
+        <div class="reviews-container">
+            <div class="reviews-header">
+                <h2>What Our Customers Say</h2>
+                <p>Join thousands of happy customers who have transformed their ideas into reality with Cluster Studio</p>
             </div>
-            <div class="trust-item">
-                <i class="fas fa-palette"></i>
-                <h3>Full Customization</h3>
+
+            <!-- Testimonials Grid -->
+            <div class="testimonials-grid">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">A</div>
+                        <div class="review-info">
+                            <div class="review-name">Arjun Sharma</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"The quality of the custom mug is amazing! Excellent print quality and the delivery was super fast. Highly recommend Cluster Studio!"</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">P</div>
+                        <div class="review-info">
+                            <div class="review-name">Priya Patel</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect gift for my sister! The t-shirt customization was exactly what I wanted. The team was very responsive to my requests."</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">R</div>
+                        <div class="review-info">
+                            <div class="review-name">Rahul Desai</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Great quality products at reasonable prices. The customization options are fantastic. Will definitely order again!"</p>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">N</div>
+                        <div class="review-info">
+                            <div class="review-name">Neha Singh</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"The magic mug is absolutely stunning! My friends loved it as a gift. Excellent customer service throughout the process."</p>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">V</div>
+                        <div class="review-info">
+                            <div class="review-name">Vikram Kumar</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect quality and amazing designs. The sipper bottle is my favorite now. Definitely worth every penny!"</p>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">M</div>
+                        <div class="review-info">
+                            <div class="review-name">Meera Joshi</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Excellent customization service! The design I provided was printed perfectly. Highly satisfied with the quality!"</p>
+                </div>
             </div>
-            <div class="trust-item">
-                <i class="fas fa-shipping-fast"></i>
-                <h3>Fast Delivery</h3>
+
+            <!-- Customer Photos Gallery -->
+            <div class="customer-photos-section">
+                <h3 class="photos-title">Customer Photos</h3>
+                <div class="customer-photos-grid">
+                    <div class="customer-photo-item">
+                        <img src="patch mug side 1.jpg" alt="Customer using Patch Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="white side 1.jpg" alt="Customer with White Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="magic side 5.jpg" alt="Customer enjoying Magic Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="siper side 4.jpg" alt="Customer with Sipper Bottle">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="Mouse side 1.jpg" alt="Customer using Mouse Pad">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="tshart side 1.jpg" alt="Customer wearing T-Shirt">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="trust-item">
-                <i class="fas fa-headset"></i>
-                <h3>Customer Support</h3>
+
+            <!-- Stats Section -->
+            <div class="review-stats">
+                <div class="stat-item">
+                    <div class="stat-number">4.8★</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">5-Star Reviews</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">9 AM to 6 PM</div>
+                    <div class="stat-label">Support Response</div>
+                </div>
             </div>
         </div>
     </section>
