@@ -167,7 +167,7 @@ a {
     align-items: center;
 }
 .nav-logo {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
 }
 
 .logo-brand-link {
