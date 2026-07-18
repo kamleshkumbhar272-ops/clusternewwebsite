@@ -1,3 +1,4 @@
+
 /* ==================== VARIABLES & RESET ==================== */
 * {
     margin: 0;
@@ -6,21 +7,46 @@
 }
 
 :root {
-    --primary-color: #cdb2ba7c;
-    --primary-dark: #ad687c00;
-    --primary-light: #000000;
-    --secondary-color: #F5EFEA;
-    --accent-color: #D4A373;
-    --text-dark: #2D2D2D;
-    --text-light: #FFFFFF;
-    --text-muted: #6B6B6B;
-    --border-color: #C6A4B4;
-    --bg-light: #FAFAFA;
-    --success-color: #28A745;
-    --error-color: #E74C3C;
+
+    /* ==================== RAKHI COLLECTION COLORS ==================== */
+    /* PRIMARY COLORS */
+    --primary-pink: #E85D8E;
+    --dark-rose: #C84B74;
+    --rose-hover: #D94F7D;
+    
+    /* BACKGROUND COLORS */
+    --main-bg: #FFF9F7;
+    --hero-bg: #FFF4F1;
+    --section-bg: #FDEEEB;
+    --card-bg: #FFFFFF;
+    --alternate-section: #FDEEEB;
+    --footer-tip-bg: #FDE1E7;
+    
+    /* GOLD ACCENTS */
+    --premium-gold: #D9B46B;
+    --light-gold: #EB8C9A;
+    --gold-border: #EFD9AE;
+    
+    /* TEXT COLORS */
+    --heading-text: #5A3B3B;
+    --body-text: #75625D;
+    --light-text: #A08D87;
+    --white-text: #FFFFFF;
+    
+    /* FOOTER */
+    --footer-bg: #E85D8E;
+    --footer-dark: #D1479A;
+    --footer-text: #FFFFFF;
+    --link-hover: #EFEAEC;
+    
+    /* STATUS COLORS */
+    --sale-price: #D83D67;
+    --success-color: #6FAF72;
+    --warning-color: #F2B848;
+    --error-color: #D9534F;
     
     --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-   
+
 }
 
 html {
@@ -123,7 +149,7 @@ a {
 
 /* ==================== NAVIGATION ==================== */
 .navbar {
-    background-color: #7e1925;
+    background-color: #E85D8E;
     color: rgb(254, 250, 250);
     padding: 1rem 0;
     position: sticky;
@@ -206,7 +232,7 @@ a {
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 1px) {
     .brand-logo {
         height: 35px;
     }
@@ -232,7 +258,7 @@ a {
 }
 
 .logo-subtext {
-    font-size: 0.7rem;
+    font-size: 2.8rem;
     letter-spacing: 2px;
     opacity: 0.9;
 }
@@ -246,7 +272,7 @@ a {
 }
 
 .nav-link {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(240, 7, 7, 0.9);
     font-weight: 500;
     font-size: 0.95rem;
     letter-spacing: 0.5px;
@@ -370,7 +396,7 @@ a {
     font-size: 3.5rem;
     margin: 1.5rem 0;
     line-height: 1.2;
-     color: rgba(126, 25, 37, 0.9);
+     color: #d94f7d
      text-shadow: none;
 }
 
@@ -381,7 +407,7 @@ a {
     text-transform: uppercase;
     opacity: 0.9;
     margin-bottom: 1rem;
-     color: rgba(126, 25, 37, 0.9);
+     color:  #d94f7d;
 }
 
     .hero-description {
@@ -402,7 +428,7 @@ a {
     gap: 1.5rem;
     margin-top: 2.5rem;
     animation: slideInLeft 0.8s ease-out 0.4s both;
-     color: rgba(126, 25, 37, 0.9)!important;
+     color:  #d94f7d;
      
 }
 
@@ -440,13 +466,13 @@ color: rgba(126, 25, 37, 0.9);
 .section-title {
     text-align: center;
     font-size: 2.5rem;
-    color: #7e1925;
+    color:  #d94f7d;
     margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
     text-align: center;
-    color:  #7e1925;;
+    color:  #d94f7d; 
     font-size: 1.1rem;
     margin-bottom: 3rem;
 }
@@ -709,6 +735,7 @@ color: rgba(126, 25, 37, 0.9);
     align-items: center;
     margin-bottom: 1rem;
     font-size: 0.85rem;
+    color:  #d94f7d;
 }
 
 .product-rating i {
@@ -721,17 +748,19 @@ color: rgba(126, 25, 37, 0.9);
     gap: 0.8rem;
     align-items: center;
     margin-bottom: 1rem;
+    color:  #d94f7d;
+
 }
 
 .price {
     font-size: 1.1rem !important;
     font-weight: 700;
-    color: #7e1925 !important;  ← DARK BURGUNDY - VERY VISIBLE
+    color:  #d94f7d;  
 }
 
 .original-price {
     text-decoration: line-through;
-    color: var(--text-muted);
+    color: #d94f7d;;
     font-size: 0.95rem;
 }
 
@@ -793,13 +822,13 @@ color: rgba(126, 25, 37, 0.9);
 }
 
 .footer-section h4 {
-    color: var(--secondary-color);
+    color: var(--dark-rose);
     margin-bottom: 1rem;
     font-size: 1.1rem;
 }
 
 .footer-section p {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--dark-rose);
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }
@@ -813,18 +842,20 @@ color: rgba(126, 25, 37, 0.9);
 }
 
 .footer-section ul li a {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--dark-rose);
     transition: var(--transition);
 }
 
 .footer-section ul li a:hover {
-    color: var(--secondary-color);
+    color: var(--dark-rose);
 }
 
 .social-links {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
+    color: var(--dark-rose);
+
 }
 
 .social-links a {
@@ -835,7 +866,7 @@ color: rgba(126, 25, 37, 0.9);
     height: 40px;
     background-color: var(--primary-color);
     border-radius: 50%;
-    color: white;
+    color: var(--dark-rose);
     transition: var(--transition);
 }
 
@@ -1628,4 +1659,5 @@ color: rgba(126, 25, 37, 0.9);
         background-position: center center;
         min-height: 180px;
     }
+    
 }

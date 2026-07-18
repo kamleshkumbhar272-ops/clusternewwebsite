@@ -8,6 +8,503 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ==================== AUTO SCROLL CAROUSEL ==================== */
+        .product-carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 300px;
+            background: #f5f5f5;
+            cursor: pointer;
+        }
+
+        .carousel-container {
+            display: flex;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        /* Carousel Navigation Dots */
+        .carousel-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(126, 25, 37, 0.5);
+        }
+
+        .dot.active {
+            background: #7e1925;
+            transform: scale(1.3);
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .carousel-arrow {
+            width: 40px;
+            height: 40px;
+            background: rgba(126, 25, 37, 0.7);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            font-size: 1.2rem;
+            opacity: 0;
+        }
+
+        .product-carousel-wrapper:hover .carousel-arrow {
+            opacity: 1;
+        }
+
+        .carousel-arrow:hover {
+            background: #7e1925;
+            transform: scale(1.1);
+        }
+
+        .carousel-arrow:active {
+            transform: scale(0.95);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(126, 25, 37, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            z-index: 8;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ==================== GLOWING GIFT BUTTON ==================== */
+        .glowing-gift-btn {
+            position: fixed;
+            left: 1160px;
+            top: 100px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 2px solid rgba(126, 25, 37, 0.9);
+            background: linear-gradient(135deg, rgba(126, 25, 37, 0.3) 0%, rgba(173, 104, 124, 0.2) 100%);
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            font-size: 2rem;
+            color: #7e1925;
+            box-shadow: 
+                0 0 20px rgba(126, 25, 37, 0.7),
+                0 0 40px rgba(173, 104, 124, 0.5),
+                inset 0 0 20px rgba(126, 25, 37, 0.3);
+            animation: pulseGlow 2s ease-in-out infinite;
+            z-index: 100;
+        }
+
+        .glowing-gift-btn i {
+            font-size: 2.5rem;
+            animation: bounceGift 1.5s ease-in-out infinite;
+            color: #7e1925;
+        }
+
+        .gift-text {
+            font-size: 0.7rem;
+            margin-top: 0.3rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            animation: fadeInOut 2s ease-in-out infinite;
+            color: #7e1925;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 20px rgba(126, 25, 37, 0.7),
+                    0 0 40px rgba(173, 104, 124, 0.5),
+                    inset 0 0 20px rgba(126, 25, 37, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 
+                    0 0 30px rgba(126, 25, 37, 0.9),
+                    0 0 60px rgba(173, 104, 124, 0.7),
+                    inset 0 0 30px rgba(126, 25, 37, 0.4);
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounceGift {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .glow-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            border-top: 2px solid rgba(126, 25, 37, 0.9);
+            border-right: 2px solid rgba(173, 104, 124, 0.7);
+            animation: spinGlow 2s linear infinite;
+        }
+
+        @keyframes spinGlow {
+            0% {
+                transform: rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(360deg);
+                opacity: 0.8;
+            }
+        }
+
+        .glowing-gift-btn:hover {
+            transform: scale(1.12);
+            box-shadow: 
+                0 0 40px rgba(126, 25, 37, 0.9),
+                0 0 80px rgba(173, 104, 124, 0.7),
+                inset 0 0 30px rgba(126, 25, 37, 0.4);
+            border-color: #7e1925;
+        }
+
+        .glowing-gift-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .glowing-gift-btn {
+                width: 75px;
+                height: 75px;
+                left: 15px;
+                top: 80px;
+            }
+
+            .glowing-gift-btn i {
+                font-size: 2rem;
+            }
+
+            .gift-text {
+                font-size: 0.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glowing-gift-btn {
+                width: 65px;
+                height: 65px;
+                left: 10px;
+                top: 70px;
+            }
+
+            .glowing-gift-btn i {
+                font-size: 1.8rem;
+            }
+
+            .gift-text {
+                font-size: 0.55rem;
+            }
+        }
+
+        /* ==================== CIRCULAR BUTTONS SECTION ==================== */
+        .circular-buttons-section {
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            perspective: 1000px;
+        }
+
+        .buttons-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .buttons-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .buttons-header h2 {
+            font-size: 2.2rem;
+            color: #7e1925;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .buttons-header p {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            perspective: 1200px;
+        }
+
+        .circular-btn {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            box-shadow: 
+                0 20px 40px rgba(126, 25, 37, 0.3),
+                0 0 60px rgba(126, 25, 37, 0.1),
+                inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .circular-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 100%);
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .circular-btn:hover {
+            transform: rotateX(15deg) rotateY(-15deg) scale(1.15) translateZ(30px);
+            box-shadow: 
+                0 30px 60px rgba(126, 25, 37, 0.4),
+                0 0 80px rgba(126, 25, 37, 0.2),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .circular-btn:active {
+            transform: rotateX(5deg) rotateY(-5deg) scale(0.95) translateZ(10px);
+        }
+
+        .btn-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 0;
+            transition: transform 0.6s ease;
+        }
+
+        .circular-btn:hover .btn-image {
+            transform: scale(1.1);
+        }
+
+        .btn-overlay {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(126, 25, 37, 0.9) 0%, rgba(173, 104, 124, 0.85) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .circular-btn:hover .btn-overlay {
+            opacity: 1;
+            transform: rotateZ(-10deg);
+        }
+
+        /* Mobile touch state */
+        .circular-btn.touch-active {
+            transform: rotateX(12deg) rotateY(-12deg) scale(1.15) translateZ(30px) !important;
+            box-shadow: 
+                0 30px 60px rgba(126, 25, 37, 0.4),
+                0 0 80px rgba(126, 25, 37, 0.2),
+                inset -2px -2px 8px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        .circular-btn.touch-active .btn-overlay {
+            opacity: 1;
+            transform: rotateZ(-10deg);
+        }
+
+        /* ==================== FLIP ANIMATION ==================== */
+        @keyframes flipCard {
+            0% {
+                transform: rotateY(0deg);
+            }
+            50% {
+                transform: rotateY(90deg);
+            }
+            100% {
+                transform: rotateY(0deg);
+            }
+        }
+
+        .circular-btn.flip-active {
+            animation: flipCard 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* ==================== ROTATING BACKGROUND ==================== */
+        @keyframes rotateBackground {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .circular-buttons-section.rotating-bg {
+            background: linear-gradient(-45deg, #f5f5f5 0%, #fafafa 25%, #f0f0f0 50%, #fafafa 75%, #f5f5f5 100%);
+            background-size: 400% 400%;
+            animation: rotateBackground 8s ease infinite;
+        }
+
+        /* Alternative rotating gradient with more colors */
+        @keyframes rotateBgAdvanced {
+            0% {
+                background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            }
+            25% {
+                background: linear-gradient(45deg, #fafafa 0%, #f0f0f0 100%);
+            }
+            50% {
+                background: linear-gradient(225deg, #f0f0f0 0%, #ffffff 100%);
+            }
+            75% {
+                background: linear-gradient(315deg, #fafafa 0%, #f5f5f5 100%);
+            }
+            100% {
+                background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            }
+        }
+
+        .circular-buttons-section.rotating-bg-advanced {
+            animation: rotateBgAdvanced 12s ease infinite;
+        }
+
+        /* Rotating border effect */
+        .circular-btn::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #7e1925, #ad687c, #7e1925, #ad687c);
+            background-size: 300% 300%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: rotateBorder 3s linear infinite paused;
+        }
+
+        @keyframes rotateBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .circular-btn:hover::after {
+            opacity: 1;
+            animation: rotateBorder 3s linear infinite;
+        }
+
         /* ==================== CUSTOMER REVIEWS SECTION ==================== */
         .reviews-section {
             background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
@@ -211,6 +708,43 @@
 
         /* ==================== RESPONSIVE ==================== */
         @media (max-width: 768px) {
+            .circular-buttons-section {
+                padding: 2rem 1rem;
+                perspective: 600px;
+            }
+
+            .buttons-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .buttons-wrapper {
+                gap: 20px;
+                perspective: 700px;
+            }
+
+            .circular-btn {
+                width: 90px;
+                height: 90px;
+                box-shadow: 
+                    0 15px 30px rgba(126, 25, 37, 0.3),
+                    0 0 50px rgba(126, 25, 37, 0.1),
+                    inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+            }
+
+            .circular-btn:hover {
+                transform: rotateX(12deg) rotateY(-12deg) scale(1.12) translateZ(20px);
+                box-shadow: 
+                    0 20px 50px rgba(126, 25, 37, 0.4),
+                    0 0 70px rgba(126, 25, 37, 0.2),
+                    inset -2px -2px 6px rgba(0, 0, 0, 0.3);
+            }
+
+            .btn-overlay {
+                width: 90px;
+                height: 90px;
+                font-size: 0.8rem;
+            }
+
             .reviews-section {
                 padding: 2rem 1rem;
             }
@@ -237,9 +771,62 @@
                 grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
             }
+
+            .product-carousel-wrapper {
+                height: 250px;
+            }
+
+            .carousel-arrow {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
+            .circular-buttons-section {
+                padding: 1.5rem 1rem;
+                margin: 2rem 0;
+                perspective: 500px;
+            }
+
+            .buttons-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .buttons-wrapper {
+                gap: 12px;
+                perspective: 600px;
+            }
+
+            .circular-btn {
+                width: 80px;
+                height: 80px;
+                box-shadow: 
+                    0 12px 25px rgba(126, 25, 37, 0.3),
+                    0 0 40px rgba(126, 25, 37, 0.1),
+                    inset -2px -2px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            .circular-btn:hover {
+                transform: rotateX(10deg) rotateY(-10deg) scale(1.1) translateZ(15px);
+                box-shadow: 
+                    0 18px 40px rgba(126, 25, 37, 0.4),
+                    0 0 60px rgba(126, 25, 37, 0.2),
+                    inset -2px -2px 5px rgba(0, 0, 0, 0.3);
+            }
+
+            .circular-btn.touch-active {
+                transform: rotateX(10deg) rotateY(-10deg) scale(1.1) translateZ(15px) !important;
+            }
+
+            .btn-overlay {
+                width: 80px;
+                height: 80px;
+                font-size: 0.7rem;
+                padding: 5px;
+            }
+
             .reviews-section {
                 padding: 1.5rem 1rem;
                 margin: 2rem 0;
@@ -277,16 +864,35 @@
             .review-stats {
                 grid-template-columns: 1fr;
             }
+
+            .product-carousel-wrapper {
+                height: 200px;
+            }
+
+            .carousel-arrow {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
+            /* ==================== HERO SUBTITLE LEFT ALIGN ==================== */
+            .hero-subtitle {
+                text-align: left;
+                display: block;
+                margin-left: 0;
+                padding-left: 0;
+            }
         }
     </style>
 </head>
 <body>
+
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
              <div class="nav-logo">
                    <a href="index.html" class="logo-brand-link">
-                    <img src="logo.png" alt="Your Brand Logo" class="brand-logo">
+                    <img src="logo1.png" alt="Your Brand Logo" class="brand-logo">
                 <div class="brand-name">
                <div class="brand-main">CLUSTER</div>
                 <div class="brand-sub">STUDIO</div>
@@ -296,32 +902,16 @@
             
             <div class="nav-menu">
                 <a href="index.html" class="nav-link active">Home</a>
-                <a href="index.html" class="nav-link">Shop</a>
-                <a href="index.html" class="nav-link">Customize</a>
-                <a href="#" class="nav-link">About</a>
-                <a href="#" class="nav-link">Contact</a>
+                
             </div>
             
-            <div class="nav-icons">
-                <div class="search-container">
-                    <input type="text" placeholder="Search products..." class="search-input" id="searchInput">
-                    <i class="fas fa-search"></i>
-                </div>
-                <a href="#" class="nav-icon"><i class="fas fa-heart"></i><span class="badge wishlist-count">0</span></a>
-                <a href="#" class="nav-icon"><i class="fas fa-user"></i></a>
-                <a href="index.html" class="nav-icon"><i class="fas fa-shopping-bag"></i><span class="badge cart-count">0</span></a>
-            </div>
-
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            
+                
         </div>
     </nav>
 
     <!-- Hero Section -->
-   <section class="hero" style="background-image: url('cluster_studio_banner.png');">
+   <section class="hero" style="background-image: url('Rakhi\ Poster\ .png');">
     <div class="hero-overlay"></div>
     <div class="hero-content">
         <div class="hero-text">
@@ -336,16 +926,253 @@
         </div>
     </div>
 </section>
+<!-- Cluster Studio Design Section -->
+    <section id="categories" class="categories-section">
+        <h2 class="section-title">Cluster Studio Rakhi</h2>
+        <p class="section-subtitle">Explore Our Premium Collections</p>
+        
+        <div class="products-grid">
+            <!-- Product 1 - Golden Sun Rakhi -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="golden-sun-rakhi" data-scroll-speed="2000">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="Golden Sun Rakhi 1.png" alt="Premium patch mug"></div>
+                            <div class="carousel-slide"><img src="Golden Sun Rakhi 1.png" alt="Premium patch mug angle"></div>
+                            <div class="carousel-slide"><img src="Golden Sun Rakhi 1.png" alt="Premium patch mug close"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <span class="product-badge">New</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Golden Sun Rakhi </h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹349</span>
+                        <span class="original-price">₹399</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Golden Sun Rakhi', '₹349')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 2 - Round Bracelet Rakhi  -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="round-bracelet-rakhi" data-scroll-speed="4000">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="round bracelet rakhi 1.png" alt="Classic Premium Ceramic Mug"></div>
+                            <div class="carousel-slide"><img src="round bracelet rakhi 1.png" alt="Classic Premium Ceramic Mug angle"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Round Bracelet Rakhi</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹249</span>
+                        
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Round Bracelet Rakhi', '₹249')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 3 Square Bracelet Rakhi -  -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="square-bracelet-rakhi" data-scroll-speed="2500">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="square bracelet rakhi 1.png" alt="Square Bracelet Rakhi"></div>
+                            <div class="carousel-slide"><img src="square bracelet rakhi 1.png" alt="Square Bracelet Rakhi"></div>
+                            <div class="carousel-slide"><img src="square bracelet rakhi 1.png" alt="Square Bracelet Rakhi"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Square Bracelet Rakhi</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹249</span>
+                       
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Square Bracelet Rakhi', '₹249')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 4 - Rectangle Bracelet Rakhi -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="rectangle-bracelet-rakhi" data-scroll-speed="3500">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="rectangle bracelet rakhi 1.png" alt="Rectangle Bracelet Rakhi"></div>
+                            <div class="carousel-slide"><img src="rectangle bracelet rakhi 1.png" alt="Rectangle Bracelet Rakhi"></div>
+                            <div class="carousel-slide"><img src="rectangle bracelet rakhi 1.png" alt="Rectangle Bracelet Rakhi"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Rectangle Bracelet Rakhi</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹249</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Rectangle Bracelet Rakhi', '₹249')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 5 - Mor Pankh Rakhi  -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="mor-pankh-rakhi" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="Mor Pankh Rakhi 1.png" alt="Mor Pankh Rakhi"></div>
+                            <div class="carousel-slide"><img src="Mor Pankh Rakhi 1.png" alt="Mor Pankh Rakhi detail"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mor Pankh Rakhi</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹199</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Mor Pankh Rakhi', '₹199')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+             <!-- Product 6 - Traditional Square Rakhi   -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="traditional-square-rakhi" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="Traditional Square Rakhi 1.png" alt="Traditional Square Rakhi"></div>
+                            <div class="carousel-slide"><img src="Traditional Square Rakhi 1.png" alt="Traditional Square Rakhi detail"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Traditional Square Rakhi</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹149</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Traditional Square Rakhi', '₹149')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+              <!-- Product7 - Traditional Round Rakhi   -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <div class="product-carousel-wrapper" data-product-id="traditional-round-rakhi" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="Traditional Round Rakhi 1.png" alt="Traditional Round Rakhi"></div>
+                            <div class="carousel-slide"><img src="Traditional Round Rakhi 1.png" alt="Traditional Round Rakhi detail"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Traditional Round Rakhi</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹149</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Traditional Round Rakhi', '₹149')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Cluster Studio Design Section -->
     <section id="categories" class="categories-section">
         <h2 class="section-title">Cluster Studio Design</h2>
         <p class="section-subtitle">Explore Our Premium Collections</p>
         
         <div class="products-grid">
-            <!-- Product 1 -->
+            <!-- Product 1 - Patch Mug -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="patch mug side 1.jpg" alt="Premium patch mug" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="patch-mug" data-scroll-speed="2000">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="patch mug side 1.jpg" alt="Premium patch mug"></div>
+                            <div class="carousel-slide"><img src="patch mug side 2.jpg" alt="Premium patch mug angle"></div>
+                            <div class="carousel-slide"><img src="patch  mug side 3.jpg" alt="Premium patch mug close"></div>
+                            <div class="carousel-slide"><img src="patch mug side 4.jpg" alt="Premium patch mug close"></div>
+                            <div class="carousel-slide"><img src="patch mug side 5.jpg" alt="Premium patch mug close"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                     <span class="product-badge">New</span>
                 </div>
                 <div class="product-info">
@@ -357,20 +1184,31 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
-                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹299</span>
                         <span class="original-price">₹350</span>
                     </div>
-                    <a href="patch mug.html" class="btn btn-small">order now</a>
+                   <a href="#" onclick="sendToWhatsApp(event, 'Patch Mug', '₹299')" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-            <!-- Product 2 -->
+            <!-- Product 2 - White Mug -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="white side 1.jpg" alt="Classic Premium Ceramic Mug" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="white-mug" data-scroll-speed="4000">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="white side 1.jpg" alt="Classic Premium Ceramic Mug"></div>
+                            <div class="carousel-slide"><img src="white side 2.jpg" alt="Classic Premium Ceramic Mug angle"></div>
+                            <div class="carousel-slide"><img src="white side 3.jpg" alt="Classic Premium Ceramic Mug detail"></div>
+                            <div class="carousel-slide"><img src="white side 4.jpg" alt="Classic Premium Ceramic Mug angle"></div>
+                            <div class="carousel-slide"><img src="white side 5.jpg" alt="Classic Premium Ceramic Mug angle"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">White Mug</h3>
@@ -381,20 +1219,32 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹199</span>
                         <span class="original-price">₹229</span>
                     </div>
-                    <a href="white mug.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'White Mug', '₹199')" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-            <!-- Product 3 -->
+            <!-- Product 3 - Magic Mug -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="magic side 5.jpg" alt="Premium magic mug" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="magic-mug" data-scroll-speed="2500">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="magic side 5.jpg" alt="Premium magic mug"></div>
+                            <div class="carousel-slide"><img src="magic side 1.jpg" alt="Premium magic mug hot"></div>
+                            <div class="carousel-slide"><img src="magic side 2.jpg" alt="Premium magic mug design"></div>
+                            <div class="carousel-slide"><img src="magic side 3.jpg" alt="Premium magic mug design"></div>
+                            <div class="carousel-slide"><img src="magic side 4.jpg" alt="Premium magic mug design"></div>
+                            <div class="carousel-slide"><img src="magic side 5.jpg" alt="Premium magic mug design"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Magic Mug</h3>
@@ -405,23 +1255,34 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹349</span>
                         <span class="original-price">₹449</span>
                     </div>
-                    <a href="magic.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Magic Mug', '₹349')" class="btn btn-small">order now</a>
                 </div>
             </div>
-
-            <!-- Product 4 -->
+            
+            <!-- Product 5 - sipper bottel -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="siper side 4.jpg" alt="sipper bottel" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="sipper-bottel" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="siper side 5.jpg" alt="sipper bottel"></div>
+                            <div class="carousel-slide"><img src="siper side 4.jpg" alt="sipper bottel detail"></div>
+                            <div class="carousel-slide"><img src="siper side 3.jpg" alt="sipper bottel detail"></div>
+                            <div class="carousel-slide"><img src="siper side 2.jpg" alt="sipper bottel detail"></div>
+                            <div class="carousel-slide"><img src="siper side 1.jpg" alt="sipper bottel detail"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Sipper Bottle</h3>
+                    <h3 class="product-name">sipper bottel</h3>
                     <p class="product-category">Category</p>
                     <div class="product-rating">
                         <i class="fas fa-star"></i>
@@ -429,24 +1290,33 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹349</span>
                     </div>
-                    <a href="siper.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'sipper bottel', '₹349')" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-        
-             
-
-             <div class="product-card">
+            <!-- Product 6 - Mouse Pad -->
+            <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="mouse side 1.jpg" alt="Mouse Pad " class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="mouse-pad" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="mouse side 1.jpg" alt="Mouse Pad"></div>
+                            <div class="carousel-slide"><img src="mouse side 2.jpg" alt="Mouse Pad detail"></div>
+                             <div class="carousel-slide"><img src="mouse side 3.jpg" alt="Mouse Pad detail"></div>
+                            <div class="carousel-slide"><img src="mouse side 4.jpg" alt="Mouse Pad detail"></div>
+                            <div class="carousel-slide"><img src="mouse side 5.jpg" alt="Mouse Pad detail"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Mouse Pad </h3>
+                    <h3 class="product-name">Mouse Pad</h3>
                     <p class="product-category">Category</p>
                     <div class="product-rating">
                         <i class="fas fa-star"></i>
@@ -454,30 +1324,38 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹149</span>
                     </div>
-                    <a href="mouse.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Mouse Pad', '₹149')" class="btn btn-small">order now</a>
                 </div>
-             </div>
+            </div>
         </div>
-        
-
     </section>
 
-   
-    <!-- Featured Products Section - Keychains -->
+    <!-- Featured Products Section - Keychains & T-Shirts -->
     <section id="keychains & t-shirts" class="categories-section">
-        <h2 class="section-title">Cluster Studio Design - Keychains & T-Shirts</h2>
+        <h2 class="section-title">Cluster Studio Design - Keychains & T-Shirts</h4>
         <p class="section-subtitle">Explore Our Premium Collections</p>
         
         <div class="products-grid">
-            <!-- Keychain 1 -->
+            <!-- T-Shirt 1 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="tshart side 1.jpg" alt="T-Shirt" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="poly-tshirt" data-scroll-speed="3000">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="tshart side 1.jpg" alt="T-Shirt"></div>
+                            <div class="carousel-slide"><img src="tshart side 2.jpg" alt="T-Shirt back"></div>
+                            <div class="carousel-slide"><img src="tshart side 3.jpg" alt="T-Shirt back"></div>
+                            <div class="carousel-slide"><img src="tshart side 4.jpg" alt="T-Shirt back"></div>
+                            <div class="carousel-slide"><img src="tshart side 5.jpg" alt="T-Shirt back"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                     <span class="product-badge">New</span>
                 </div>
                 <div class="product-info">
@@ -489,20 +1367,31 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
-                       
                     </div>
                     <div class="product-price">
-                        <span class="price">₹299</span>
+                        <span class="price">₹329</span>
                         <span class="original-price">₹349</span>
                     </div>
-                    <a href="tshart.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Poly Cotton T-Shirt', '₹329')" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-            <!-- Keychain 2 -->
+            <!-- T-Shirt 2 -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="polyster tshart side 1.jpg" alt="polyester t shirt" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="polyester-tshirt" data-scroll-speed="2800">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="polyster tshart side 1.jpg" alt="polyester t shirt"></div>
+                            <div class="carousel-slide"><img src="polyster tshart side 2.jpg" alt="polyester t shirt back"></div>
+                            <div class="carousel-slide"><img src="polyster tshart side 3.jpg" alt="polyester t shirt back"></div>
+                            <div class="carousel-slide"><img src="polyster tshart side 4.jpg" alt="polyester t shirt back"></div>
+                            <div class="carousel-slide"><img src="polyster tshart side 5.jpg" alt="polyester t shirt back"></div>
+
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">polyester t shirt</h3>
@@ -513,21 +1402,27 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹299</span>
                         <span class="original-price">₹349</span>
                     </div>
-                    <a href="PolysterTshirt.html" class="btn btn-small">order now</a>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Polyester T-Shirt', '₹299')" class="btn btn-small">order now</a>
                 </div>
             </div>
 
-            <!-- Keychain 3 -->
-           <!-- Keychain 4 -->
+            <!-- Keychain 1 - Oval -->
             <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="ovel kechain .jpeg" alt="Oval Keychain" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="oval-keychain" data-scroll-speed="3500">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="ovel kechain .jpeg" alt="Oval Keychain"></div>
+                            <div class="carousel-slide"><img src="ovel kechain .jpeg" alt="Oval Keychain front"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Oval Keychain</h3>
@@ -538,7 +1433,6 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                       
                     </div>
                     <div class="product-price">
                         <span class="price">₹129</span>
@@ -547,11 +1441,18 @@
                 </div>
             </div>
 
-            <!-- Keychain 5 -->
-           
-             <div class="product-card">
+            <!-- Keychain 2 - Rectangle -->
+            <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="Rectangle Keychain.jpeg" alt="Rectangle Keychain" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="rect-keychain" data-scroll-speed="3200">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="Rectangle Keychain.jpeg" alt="Rectangle Keychain"></div>
+                            <div class="carousel-slide"><img src="Rectangle Keychain.jpeg" alt="Rectangle Keychain front"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Rectangle Keychain</h3>
@@ -562,7 +1463,6 @@
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
-                        
                     </div>
                     <div class="product-price">
                         <span class="price">₹129</span>
@@ -570,13 +1470,19 @@
                     <a href="#" onclick="sendToWhatsApp(event, 'Rectangle Keychain Metal / Wooden', '₹129')" class="btn btn-small">order now</a>
                 </div>
             </div>
-             <!-- Keychain 5 -->
-           
-             
-           
-             <div class="product-card">
+
+            <!-- Dryfit T-Shirt -->
+            <div class="product-card">
                 <div class="product-image-wrapper">
-                    <img src="dryfit collar tshirt.jpeg" alt="Dryfit Collar Tshirt" class="product-image">
+                    <div class="product-carousel-wrapper" data-product-id="dryfit-tshirt" data-scroll-speed="3800">
+                        <div class="carousel-container">
+                            <div class="carousel-slide"><img src="dryfit collar tshirt.jpeg" alt="Dryfit Collar Tshirt"></div>
+                            <div class="carousel-slide"><img src="dryfit collar tshirt.jpeg" alt="Dryfit Collar Tshirt back"></div>
+                        </div>
+                        <div class="carousel-dots"></div>
+                        <button class="carousel-arrow carousel-prev"><i class="fas fa-chevron-left"></i></button>
+                        <button class="carousel-arrow carousel-next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Dryfit Collar Tshirt</h3>
@@ -598,9 +1504,7 @@
         </div>
     </section>
 
-    <!-- Trust Section -->
-
-    <!-- ==================== CUSTOMER REVIEWS SECTION ==================== -->
+    <!-- Customer Reviews Section -->
     <section class="reviews-section">
         <div class="reviews-container">
             <div class="reviews-header">
@@ -754,7 +1658,7 @@
                         </div>
                     </div>
                     <div class="customer-photo-item">
-                        <img src="Mouse side 1.jpg" alt="Customer using Mouse Pad">
+                        <img src="mouse side 1.jpg" alt="Customer using Mouse Pad">
                         <div class="customer-photo-overlay">
                             <i class="fas fa-heart"></i>
                         </div>
@@ -838,26 +1742,145 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
-    <!-- ==================== JAVASCRIPT - ALL IN ONE ==================== -->
+    <!-- ==================== CAROUSEL JAVASCRIPT ==================== -->
     <script>
+        class ProductCarousel {
+            constructor(element) {
+                this.wrapper = element;
+                this.container = element.querySelector('.carousel-container');
+                this.slides = element.querySelectorAll('.carousel-slide');
+                this.dotsContainer = element.querySelector('.carousel-dots');
+                this.prevBtn = element.querySelector('.carousel-prev');
+                this.nextBtn = element.querySelector('.carousel-next');
+                
+                this.currentSlide = 0;
+                this.slideCount = this.slides.length;
+                this.autoScrollSpeed = parseInt(element.getAttribute('data-scroll-speed')) || 3000;
+                this.autoScrollTimer = null;
+                this.isAutoScrolling = false;
+                
+                this.init();
+            }
+
+            init() {
+                this.createDots();
+                this.attachEventListeners();
+                this.startAutoScroll();
+                
+                // Click on image to scroll next
+                this.container.addEventListener('click', () => {
+                    this.nextSlide();
+                    this.restartAutoScroll();
+                });
+            }
+
+            createDots() {
+                for (let i = 0; i < this.slideCount; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot' + (i === 0 ? ' active' : '');
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(i);
+                        this.restartAutoScroll();
+                    });
+                    this.dotsContainer.appendChild(dot);
+                }
+            }
+
+            attachEventListeners() {
+                this.prevBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.prevSlide();
+                    this.restartAutoScroll();
+                });
+
+                this.nextBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.nextSlide();
+                    this.restartAutoScroll();
+                });
+
+                // Pause on hover
+                this.wrapper.addEventListener('mouseenter', () => {
+                    this.stopAutoScroll();
+                });
+
+                this.wrapper.addEventListener('mouseleave', () => {
+                    this.startAutoScroll();
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.slideCount;
+                this.updateCarousel();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.slideCount) % this.slideCount;
+                this.updateCarousel();
+            }
+
+            goToSlide(n) {
+                this.currentSlide = n;
+                this.updateCarousel();
+            }
+
+            updateCarousel() {
+                const translateValue = -this.currentSlide * 100;
+                this.container.style.transform = `translateX(${translateValue}%)`;
+
+                // Update dots
+                document.querySelectorAll('.dot').forEach((dot, index) => {
+                    if (index === this.currentSlide) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            }
+
+            startAutoScroll() {
+                if (this.isAutoScrolling) return;
+                this.isAutoScrolling = true;
+                
+                // Start after 5 seconds
+                setTimeout(() => {
+                    this.autoScrollTimer = setInterval(() => {
+                        this.nextSlide();
+                    }, this.autoScrollSpeed);
+                }, 5000);
+            }
+
+            stopAutoScroll() {
+                this.isAutoScrolling = false;
+                clearInterval(this.autoScrollTimer);
+            }
+
+            restartAutoScroll() {
+                this.stopAutoScroll();
+                this.startAutoScroll();
+            }
+        }
+
+        // Initialize all carousels on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const carousels = document.querySelectorAll('.product-carousel-wrapper');
+            carousels.forEach(carousel => {
+                new ProductCarousel(carousel);
+            });
+        });
+
         // WhatsApp Auto-Fill Function
         function sendToWhatsApp(event, productName, productPrice) {
             event.preventDefault();
             
-            // Create professional message
             const message = `Hi Cluster Studio! 👋\n\nI'm interested in ordering:\n\n📦 *Product:* ${productName}\n💰 *Price:* ${productPrice}\n\nPlease confirm availability and provide delivery details.\n\nThank you!`;
-            
-            // Encode message for WhatsApp
             const encodedMessage = encodeURIComponent(message);
-            
-            // WhatsApp number (with country code, no + sign)
             const whatsappNumber = "918380808435";
             
-            // Open WhatsApp with pre-filled message
             window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
         }
 
-        // Optional: Toast notification function
+        // Toast notification function
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast');
             toast.textContent = message;
@@ -868,10 +1891,13 @@
             }, 3000);
         }
 
-        // Optional: Update cart count
+        // Update cart count
         function updateCartCount() {
             const cartCount = localStorage.getItem('cartCount') || 0;
-            document.querySelector('.cart-count').textContent = cartCount;
+            const cartElement = document.querySelector('.cart-count');
+            if (cartElement) {
+                cartElement.textContent = cartCount;
+            }
         }
 
         // Load cart count on page load

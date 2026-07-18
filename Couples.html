@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cluster Studio - Premium Custom Products</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== CUSTOMER REVIEWS SECTION ==================== */
+        .reviews-section {
+            background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+            padding: 4rem 2rem;
+            margin: 3rem 0;
+        }
+
+        .reviews-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .reviews-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .reviews-header h2 {
+            font-size: 2.2rem;
+            color: #7e1925;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .reviews-header p {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==================== REVIEWS GRID ==================== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(126, 25, 37, 0.08);
+            transition: all 0.3s ease;
+            border-top: 4px solid #7e1925;
+        }
+
+        .review-card:hover {
+            box-shadow: 0 8px 24px rgba(126, 25, 37, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .review-header {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+
+        .review-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7e1925, #ad687c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .review-info {
+            flex: 1;
+        }
+
+        .review-name {
+            font-weight: 600;
+            color: #7e1925;
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .review-title {
+            font-size: 0.8rem;
+            color: #999;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .review-rating i {
+            color: #ffc107;
+            font-size: 0.85rem;
+        }
+
+        .review-text {
+            color: #666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        /* ==================== CUSTOMER PHOTOS SECTION ==================== */
+        .customer-photos-section {
+            margin-top: 3rem;
+        }
+
+        .photos-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #7e1925;
+            margin-bottom: 2rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+        }
+
+        .customer-photos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .customer-photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            height: 200px;
+            background: #f5f5f5;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(126, 25, 37, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .customer-photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .customer-photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(126, 25, 37, 0.2);
+        }
+
+        .customer-photo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(126, 25, 37, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .customer-photo-item:hover .customer-photo-overlay {
+            opacity: 1;
+        }
+
+        .customer-photo-overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* ==================== STATS SECTION ==================== */
+        .review-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 1px solid #ddd;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #7e1925;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .reviews-section {
+                padding: 2rem 1rem;
+            }
+
+            .reviews-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .customer-photos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .customer-photo-item {
+                height: 150px;
+            }
+
+            .review-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .reviews-section {
+                padding: 1.5rem 1rem;
+                margin: 2rem 0;
+            }
+
+            .reviews-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .reviews-header p {
+                font-size: 0.9rem;
+            }
+
+            .testimonials-grid {
+                gap: 1rem;
+            }
+
+            .review-card {
+                padding: 1.5rem;
+            }
+
+            .customer-photos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .customer-photo-item {
+                height: 120px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .review-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+             <div class="nav-logo">
+                   <a href="index.html" class="logo-brand-link">
+                    <img src="logo.png" alt="Your Brand Logo" class="brand-logo">
+                <div class="brand-name">
+               <div class="brand-main">CLUSTER</div>
+                <div class="brand-sub">STUDIO</div>
+               </div>
+               </a>
+                </div>
+            
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="index.html" class="nav-link">Shop</a>
+                <a href="index.html" class="nav-link">Customize</a>
+                <a href="#" class="nav-link">About</a>
+                <a href="#" class="nav-link">Contact</a>
+            </div>
+            
+            <div class="nav-icons">
+                <div class="search-container">
+                    <input type="text" placeholder="Search products..." class="search-input" id="searchInput">
+                    <i class="fas fa-search"></i>
+                </div>
+                <a href="#" class="nav-icon"><i class="fas fa-heart"></i><span class="badge wishlist-count">0</span></a>
+                <a href="#" class="nav-icon"><i class="fas fa-user"></i></a>
+                <a href="index.html" class="nav-icon"><i class="fas fa-shopping-bag"></i><span class="badge cart-count">0</span></a>
+            </div>
+
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+   <section class="hero" style="background-image: url('cluster_studio_banner.png');">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <span class="hero-subtitle">MADE JUST FOR YOU</span> 
+            <h1 class="hero-title"><br></h1>
+            <p class="hero-description">                <br>                              </p>
+            <div class="hero-buttons">
+                <a href="#" onclick="sendToWhatsApp(event, 'custom product', 'Custom Price')" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> EXPLORE CUSTOM PRODUCTS
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Cluster Studio Design Section -->
+    <section id="categories" class="categories-section">
+        <h2 class="section-title">Cluster Studio Design</h2>
+        <p class="section-subtitle">Explore Our Premium Collections</p>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="patch mug side 1.jpg" alt="Premium patch mug" class="product-image">
+                    <span class="product-badge">New</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Patch Mug</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹299</span>
+                        <span class="original-price">₹350</span>
+                    </div>
+                    <a href="patch mug.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="white side 1.jpg" alt="Classic Premium Ceramic Mug" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">White Mug</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                       
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹199</span>
+                        <span class="original-price">₹229</span>
+                    </div>
+                    <a href="white mug.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="magic side 5.jpg" alt="Premium magic mug" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Magic Mug</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                       
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹349</span>
+                        <span class="original-price">₹449</span>
+                    </div>
+                    <a href="magic.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="siper side 4.jpg" alt="sipper bottel" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Sipper Bottle</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹349</span>
+                    </div>
+                    <a href="siper.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+        
+             
+
+             <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="mouse side 1.jpg" alt="Mouse Pad " class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Mouse Pad </h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                       
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹149</span>
+                    </div>
+                    <a href="mouse.html" class="btn btn-small">order now</a>
+                </div>
+             </div>
+        </div>
+        
+
+    </section>
+
+   
+    <!-- Featured Products Section - Keychains -->
+    <section id="keychains & t-shirts" class="categories-section">
+        <h2 class="section-title">Cluster Studio Design - Keychains & T-Shirts</h2>
+        <p class="section-subtitle">Explore Our Premium Collections</p>
+        
+        <div class="products-grid">
+            <!-- Keychain 1 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="tshart side 1.jpg" alt="T-Shirt" class="product-image">
+                    <span class="product-badge">New</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">poly cotton t shirt</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                       
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹329</span>
+                        <span class="original-price">₹349</span>
+                    </div>
+                    <a href="tshart.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Keychain 2 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="polyster tshart side 1.jpg" alt="polyester t shirt" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">polyester t shirt</h3>
+                    <p class="product-category"></p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹299</span>
+                        <span class="original-price">₹349</span>
+                    </div>
+                    <a href="PolysterTshirt.html" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Keychain 3 -->
+           <!-- Keychain 4 -->
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="ovel kechain .jpeg" alt="Oval Keychain" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Oval Keychain</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                       
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹129</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Oval Keychain Metal / Wooden', '₹129')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+
+            <!-- Keychain 5 -->
+           
+             <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="Rectangle Keychain.jpeg" alt="Rectangle Keychain" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Rectangle Keychain</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹129</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Rectangle Keychain Metal / Wooden', '₹129')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+             <!-- Keychain 5 -->
+           
+             
+           
+             <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img src="dryfit collar tshirt.jpeg" alt="Dryfit Collar Tshirt" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Dryfit Collar Tshirt</h3>
+                    <p class="product-category">Category</p>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(0 reviews)</span>
+                    </div>
+                    <div class="product-price">
+                        <span class="price">₹349</span>
+                    </div>
+                    <a href="#" onclick="sendToWhatsApp(event, 'Dryfit Collar Tshirt', '₹349')" class="btn btn-small">order now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Section -->
+
+    <!-- ==================== CUSTOMER REVIEWS SECTION ==================== -->
+    <section class="reviews-section">
+        <div class="reviews-container">
+            <div class="reviews-header">
+                <h2>What Our Customers Say</h2>
+                <p>Join thousands of happy customers who have transformed their ideas into reality with Cluster Studio</p>
+            </div>
+
+            <!-- Testimonials Grid -->
+            <div class="testimonials-grid">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">A</div>
+                        <div class="review-info">
+                            <div class="review-name">Arjun Sharma</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"The quality of the custom mug is amazing! Excellent print quality and the delivery was super fast. Highly recommend Cluster Studio!"</p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">P</div>
+                        <div class="review-info">
+                            <div class="review-name">Priya Patel</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect gift for my sister! The t-shirt customization was exactly what I wanted. The team was very responsive to my requests."</p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">R</div>
+                        <div class="review-info">
+                            <div class="review-name">Rahul Desai</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Great quality products at reasonable prices. The customization options are fantastic. Will definitely order again!"</p>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">N</div>
+                        <div class="review-info">
+                            <div class="review-name">Neha Singh</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"The magic mug is absolutely stunning! My friends loved it as a gift. Excellent customer service throughout the process."</p>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">V</div>
+                        <div class="review-info">
+                            <div class="review-name">Vikram Kumar</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Perfect quality and amazing designs. The sipper bottle is my favorite now. Definitely worth every penny!"</p>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar">M</div>
+                        <div class="review-info">
+                            <div class="review-name">Meera Joshi</div>
+                            <div class="review-title">Verified Customer</div>
+                            <div class="review-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="review-text">"Excellent customization service! The design I provided was printed perfectly. Highly satisfied with the quality!"</p>
+                </div>
+            </div>
+
+            <!-- Customer Photos Gallery -->
+            <div class="customer-photos-section">
+                <h3 class="photos-title">Customer Photos</h3>
+                <div class="customer-photos-grid">
+                    <div class="customer-photo-item">
+                        <img src="patch mug side 1.jpg" alt="Customer using Patch Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="white side 1.jpg" alt="Customer with White Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="magic side 5.jpg" alt="Customer enjoying Magic Mug">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="siper side 4.jpg" alt="Customer with Sipper Bottle">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="Mouse side 1.jpg" alt="Customer using Mouse Pad">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    <div class="customer-photo-item">
+                        <img src="tshart side 1.jpg" alt="Customer wearing T-Shirt">
+                        <div class="customer-photo-overlay">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="review-stats">
+                <div class="stat-item">
+                    <div class="stat-number">4.8★</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Happy Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">5-Star Reviews</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">9 AM to 6 PM</div>
+                    <div class="stat-label">Support Response</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Cluster Studio brings your creative ideas to life through premium custom products.</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=61590588143754&sk=photos" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/clus.terstudio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/918380808435" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://youtube.com/@clusterstudio1?si=CTyN_CRKNedXYuNt" target="_blank"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="https://youtube.com/@clusterstudio1?si=CTyN_CRKNedXYuNt" target="_blank">YouTube</a></li>
+                    <li><a href="https://wa.me/918380808435" target="_blank">Customize</a></li>
+                    <li><a href="https://www.instagram.com/clus.terstudio?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">Instagram</a></li>
+                    <li><a href="https://wa.me/918380808435" target="_blank">WhatsApp</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone"></i> +91 83808 08435</p>
+                <p><i class="fas fa-envelope"></i> cluster1.shop</p>
+                <p><i class="fas fa-map-marker-alt"></i> Pune, India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Cluster Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- ==================== JAVASCRIPT - ALL IN ONE ==================== -->
+    <script>
+        // WhatsApp Auto-Fill Function
+        function sendToWhatsApp(event, productName, productPrice) {
+            event.preventDefault();
+            
+            // Create professional message
+            const message = `Hi Cluster Studio! 👋\n\nI'm interested in ordering:\n\n📦 *Product:* ${productName}\n💰 *Price:* ${productPrice}\n\nPlease confirm availability and provide delivery details.\n\nThank you!`;
+            
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            
+            // WhatsApp number (with country code, no + sign)
+            const whatsappNumber = "918380808435";
+            
+            // Open WhatsApp with pre-filled message
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        // Optional: Toast notification function
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast show ${type}`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Optional: Update cart count
+        function updateCartCount() {
+            const cartCount = localStorage.getItem('cartCount') || 0;
+            document.querySelector('.cart-count').textContent = cartCount;
+        }
+
+        // Load cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+    </script>
+</body>
+</html>
